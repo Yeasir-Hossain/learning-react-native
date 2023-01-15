@@ -1,27 +1,63 @@
 import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
-import { StyleSheet, Text, View, Button, ScrollView, RefreshControl } from 'react-native';
+import { StyleSheet, Text, View, Button, ScrollView, RefreshControl, FlatList, SectionList } from 'react-native';
 
 export default function App() {
   const [name, setName] = useState('Yeasir')
   const onclickhandler = () => {
     setName('Yeasir Hossain')
   }
+
+  const [data, setData] = useState([
+    {
+      title: "Title 1",
+      data: [
+        'Item 1-1', 'Item 1-2', 'Item 1-3'
+      ]
+    },
+    {
+      title: "Title 2",
+      data: [
+        'Item 2-1', 'Item 2-2', 'Item 2-3'
+      ]
+    },
+    {
+      title: "Title 3",
+      data: [
+        'Item 3-1', 'Item 3-2', 'Item 3-3'
+      ]
+    },
+    {
+      title: "Title 4",
+      data: [
+        'Item 4-1', 'Item 4-2', 'Item 4-3'
+      ]
+    },
+  ])
+
+
   const [items, setItems] = useState([
-    { key: 1, item: 'item 1' },
-    { key: 2, item: 'item 2' },
-    { key: 3, item: 'item 3' },
-    { key: 4, item: 'item 4' },
-    { key: 5, item: 'item 5' },
-    { key: 6, item: 'item 6' },
-    { key: 7, item: 'item 7' },
-    { key: 8, item: 'item 8' },
+    { item: 'item 1' },
+    { item: 'item 2' },
+    { item: 'item 3' },
+    { item: 'item 4' },
+    { item: 'item 5' },
+    { item: 'item 6' },
+    { item: 'item 7' },
+    { item: 'item 8' },
   ])
   const [Refreshing, setRefreshing] = useState(false)
 
   const onRefresh = () => {
     setRefreshing(true)
-    setItems([...items, { key: 69, item: 'item69' }])
+    setItems([...items, { item: 'item69' }])
+    setData([...data, {
+      title: "Title New",
+      data: [
+        'Item New-1', 'Item New-2', 'Item New-3'
+      ]
+    }])
+
     setRefreshing(false)
   }
 
@@ -36,7 +72,7 @@ export default function App() {
       <View style={styles.view3}>
         <Text style={styles.text}>3</Text>
       </View> */}
-      <ScrollView
+      {/* <ScrollView
         refreshControl={<RefreshControl
           refreshing={Refreshing}
           onRefresh={onRefresh}
@@ -52,7 +88,42 @@ export default function App() {
             )
           })
         }
-      </ScrollView>
+      </ScrollView> */}
+      {/* <FlatList
+        keyExtractor={(item, index) => index.toString()}
+        numColumns={2}
+        refreshControl={<RefreshControl
+          refreshing={Refreshing}
+          onRefresh={onRefresh}
+          colors={['red']}
+        />}
+       
+        data={items}
+        renderItem={({ item }) => (
+          <View style={styles.list}>
+            <Text style={styles.text}>{item.item}</Text>
+          </View>
+        )}
+      /> */}
+      <SectionList
+        keyExtractor={(item, index) => index.toString()}
+        sections={data}
+        renderItem={({ item }) => (
+          <View>
+            <Text style={styles.text}>{item}</Text>
+          </View>
+        )}
+        refreshControl={<RefreshControl
+          refreshing={Refreshing}
+          onRefresh={onRefresh}
+          colors={['red']}
+        />}
+        renderSectionHeader={({ section }) => (
+          <View style={styles.list}>
+            <Text style={styles.text}>{section.title}</Text>
+          </View>
+        )}
+      />
 
     </View>
 
@@ -63,6 +134,7 @@ const styles = StyleSheet.create({
   body: {
     flex: 1,
     backgroundColor: 'white',
+    marginTop: StatusBar.currenHeight || 0
 
   },
   view1: {
@@ -89,10 +161,12 @@ const styles = StyleSheet.create({
     textTransform: 'uppercase'
   },
   list: {
+    flex: 1,
     margin: 10,
     height: 100,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'cyan'
+    backgroundColor: 'cyan',
+    borderRadius: 10
   }
 });

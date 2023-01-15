@@ -1,65 +1,67 @@
 import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
-import { StyleSheet, Text, View, Button, ScrollView, RefreshControl, FlatList, SectionList } from 'react-native';
+import { StyleSheet, Text, View, Button, ScrollView, RefreshControl, FlatList, SectionList, TextInput } from 'react-native';
 
 export default function App() {
-  const [name, setName] = useState('Yeasir')
-  const onclickhandler = () => {
-    setName('Yeasir Hossain')
-  }
+  // const [name, setName] = useState('Yeasir')
+  // const onclickhandler = () => {
+  //   setName('Yeasir Hossain')
+  // }
 
-  const [data, setData] = useState([
-    {
-      title: "Title 1",
-      data: [
-        'Item 1-1', 'Item 1-2', 'Item 1-3'
-      ]
-    },
-    {
-      title: "Title 2",
-      data: [
-        'Item 2-1', 'Item 2-2', 'Item 2-3'
-      ]
-    },
-    {
-      title: "Title 3",
-      data: [
-        'Item 3-1', 'Item 3-2', 'Item 3-3'
-      ]
-    },
-    {
-      title: "Title 4",
-      data: [
-        'Item 4-1', 'Item 4-2', 'Item 4-3'
-      ]
-    },
-  ])
+  // const [data, setData] = useState([
+  //   {
+  //     title: "Title 1",
+  //     data: [
+  //       'Item 1-1', 'Item 1-2', 'Item 1-3'
+  //     ]
+  //   },
+  //   {
+  //     title: "Title 2",
+  //     data: [
+  //       'Item 2-1', 'Item 2-2', 'Item 2-3'
+  //     ]
+  //   },
+  //   {
+  //     title: "Title 3",
+  //     data: [
+  //       'Item 3-1', 'Item 3-2', 'Item 3-3'
+  //     ]
+  //   },
+  //   {
+  //     title: "Title 4",
+  //     data: [
+  //       'Item 4-1', 'Item 4-2', 'Item 4-3'
+  //     ]
+  //   },
+  // ])
 
 
-  const [items, setItems] = useState([
-    { item: 'item 1' },
-    { item: 'item 2' },
-    { item: 'item 3' },
-    { item: 'item 4' },
-    { item: 'item 5' },
-    { item: 'item 6' },
-    { item: 'item 7' },
-    { item: 'item 8' },
-  ])
-  const [Refreshing, setRefreshing] = useState(false)
+  // const [items, setItems] = useState([
+  //   { item: 'item 1' },
+  //   { item: 'item 2' },
+  //   { item: 'item 3' },
+  //   { item: 'item 4' },
+  //   { item: 'item 5' },
+  //   { item: 'item 6' },
+  //   { item: 'item 7' },
+  //   { item: 'item 8' },
+  // ])
+  // const [Refreshing, setRefreshing] = useState(false)
 
-  const onRefresh = () => {
-    setRefreshing(true)
-    setItems([...items, { item: 'item69' }])
-    setData([...data, {
-      title: "Title New",
-      data: [
-        'Item New-1', 'Item New-2', 'Item New-3'
-      ]
-    }])
+  // const onRefresh = () => {
+  //   setRefreshing(true)
+  //   setItems([...items, { item: 'item69' }])
+  //   setData([...data, {
+  //     title: "Title New",
+  //     data: [
+  //       'Item New-1', 'Item New-2', 'Item New-3'
+  //     ]
+  //   }])
 
-    setRefreshing(false)
-  }
+  //   setRefreshing(false)
+  // }
+  const [name, setName] = useState('')
+  // const disp = name.length === 0 ? 'flex' : 'none'
 
   return (
     <View style={styles.body}>
@@ -105,7 +107,7 @@ export default function App() {
           </View>
         )}
       /> */}
-      <SectionList
+      {/* <SectionList
         keyExtractor={(item, index) => index.toString()}
         sections={data}
         renderItem={({ item }) => (
@@ -123,7 +125,24 @@ export default function App() {
             <Text style={styles.text}>{section.title}</Text>
           </View>
         )}
+      /> */}
+      {/* input  */}
+      <Text style={styles.text}>Please write your name:</Text>
+      <TextInput
+        multiline
+        style={styles.input}
+        placeholder='e.g John'
+        onChangeText={(value) => { setName(value) }
+        }
+        maxLength={6}
       />
+       <TextInput
+        style={styles.input}
+        placeholder='password'
+        secureTextEntry
+        maxLength={6}
+      />
+      <Text>Hello, {name}!</Text>
 
     </View>
 
@@ -134,8 +153,16 @@ const styles = StyleSheet.create({
   body: {
     flex: 1,
     backgroundColor: 'white',
-    marginTop: StatusBar.currenHeight || 0
+    alignItems: 'center',
+    marginTop: StatusBar.currenHeight || 20
 
+  },
+  input: {
+    borderBottomWidth: 1,
+    width: 200,
+    borderColor: 'grey',
+    borderRadius: 5,
+    padding: 10
   },
   view1: {
     width: 100,
@@ -158,7 +185,6 @@ const styles = StyleSheet.create({
   text: {
     color: 'black',
     fontSize: 20,
-    textTransform: 'uppercase'
   },
   list: {
     flex: 1,

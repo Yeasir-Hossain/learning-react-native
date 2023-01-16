@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
-import { StyleSheet, Text, View, Button, ScrollView, RefreshControl, FlatList, SectionList, TextInput } from 'react-native';
+import { StyleSheet, Text, View, Button, ScrollView, RefreshControl, FlatList, SectionList, TextInput, TouchableOpacity, Pressable, Image } from 'react-native';
 
 export default function App() {
   // const [name, setName] = useState('Yeasir')
@@ -61,7 +61,13 @@ export default function App() {
   //   setRefreshing(false)
   // }
   const [name, setName] = useState('')
+  const [submitted, setSubmitted] = useState(false)
+  const onpresshandler = () => {
+    setSubmitted(!submitted)
+
+  }
   // const disp = name.length === 0 ? 'flex' : 'none'
+
 
   return (
     <View style={styles.body}>
@@ -136,14 +142,44 @@ export default function App() {
         }
         maxLength={6}
       />
-       <TextInput
+      {/* <TextInput
         style={styles.input}
         placeholder='password'
         secureTextEntry
         maxLength={6}
-      />
-      <Text>Hello, {name}!</Text>
+      /> */}
+      {/* <TouchableOpacity
+        activeOpacity={0.5}
+        style={styles.button}
+        onPress={onpresshandler}
+      >
+        <Text style={styles.buttontext}>
+          {submitted ? 'clear' : 'Audio book'}
+        </Text>
+      </TouchableOpacity> */}
+      {/* onpress, onlong press  */}
+      <Pressable
+        style={({ pressed }) => [
+          { backgroundColor: pressed ? 'blue' : 'purple' },
+          styles.button]}
+        hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+        android_ripple={{ color: 'red', borderless: true }}
+        onPress={onpresshandler}
+      >
+        <Text style={styles.buttontext}>
+          {submitted ? 'clear' : 'Audio book'}
+        </Text>
+      </Pressable>
+      {/* <Button title={submitted ? 'clear' : 'submit'}
+        onPress={onpresshandler}
+      ></Button> */}
+      {submitted ?
+        <Text>Hello, {name}!</Text> :
+        <View style={styles.imgback}>
+          <Image style={styles.image} resizeMode='stretch' source={require('./assets/icon.png')} />
+        </View>
 
+      }
     </View>
 
   );
@@ -156,6 +192,30 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: StatusBar.currenHeight || 20
 
+  },
+  button: {
+    padding: 10,
+    borderRadius: 50,
+    alignItems: 'center'
+  },
+  buttontext: {
+    color: 'black',
+    fontSize: 20
+  },
+  imgback: {
+    borderTopLeftRadius:50,
+    borderBottomLeftRadius:50,
+    marginTop:10,
+    marginLeft:'75%',
+    paddingLeft: 20,
+    backgroundColor:'grey'
+  },
+  image: {
+    width: 100,
+    height: 100,
+    marginLeft:'90%',
+    borderTopLeftRadius:50,
+    borderBottomLeftRadius:50,
   },
   input: {
     borderBottomWidth: 1,

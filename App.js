@@ -13,11 +13,14 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5'
 const Tab = createBottomTabNavigator();
 
 export default function App() {
-
   return (
-    <NavigationContainer>
+    <NavigationContainer
+    >
       <Tab.Navigator
         screenOptions={({ route }) => ({
+          // header: ({ navigation, route, options }) => {
+          //   return;
+          // },
           tabBarIcon: ({ focused, size, color }) => {
             let iconname;
             if (route.name === 'Screen_A') {
@@ -41,18 +44,21 @@ export default function App() {
           tabBarInactiveTintColor: 'gray',
           tabBarActiveBackgroundColor: 'white',
           tabBarInactiveBackgroundColor: 'lightgrey',
-          tabBarStyle:{},
-          tabBarShowLabel:false,
-          tabBarLabelStyle:{
-            fontSize:16,
-            borderBottomWidth:5
+          tabBarStyle: {},
+          tabBarShowLabel: false,
+          tabBarLabelStyle: {
+            fontSize: 16,
+            borderBottomWidth: 5
           }
         })}
 
       >
         {/* options={{tabBarBadge:3}} */}
-        <Tab.Screen name='Screen_A' component={ScreenA} 
-        />        
+        <Tab.Screen name='Screen_A' component={ScreenA}
+          options={{
+            header: ({ navigation }) => null
+          }}
+        />
         <Tab.Screen name='Screen_B' component={ScreenB} />
       </Tab.Navigator>
     </NavigationContainer>

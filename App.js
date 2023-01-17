@@ -23,21 +23,36 @@ export default function App() {
             if (route.name === 'Screen_A') {
               iconname = 'atlassian';
               size = focused ? 25 : 20;
-              color = focused? 'pink' : 'grey'
+              color = focused ? 'pink' : 'grey'
             }
             else if (route.name === 'Screen_B') {
               iconname = 'btc'
               size = focused ? 25 : 20
-              color = focused? 'pink' : 'grey'
+              color = focused ? 'pink' : 'grey'
             }
             return (
-              <FontAwesome5 name={iconname} size={size} color={color} ></FontAwesome5>
+              <View>
+                <FontAwesome5 name={iconname} size={size} color={color} ></FontAwesome5>
+              </View>
+
             )
+          },
+          tabBarActiveTintColor: 'red',
+          tabBarInactiveTintColor: 'gray',
+          tabBarActiveBackgroundColor: 'white',
+          tabBarInactiveBackgroundColor: 'lightgrey',
+          tabBarStyle:{},
+          tabBarShowLabel:false,
+          tabBarLabelStyle:{
+            fontSize:16,
+            borderBottomWidth:5
           }
         })}
+
       >
-        <Tab.Screen name='Screen_A' component={ScreenA}
-        />
+        {/* options={{tabBarBadge:3}} */}
+        <Tab.Screen name='Screen_A' component={ScreenA} 
+        />        
         <Tab.Screen name='Screen_B' component={ScreenB} />
       </Tab.Navigator>
     </NavigationContainer>
